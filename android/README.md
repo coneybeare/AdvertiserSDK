@@ -3,6 +3,6 @@
 1. Drop the 'src' folder to your local project
 2. In your main application class, add this to the onCreate method:
 
-'''java
+```java
 Vungle.init(this);
-'''
+```
