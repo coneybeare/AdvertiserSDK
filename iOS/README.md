@@ -1,8 +1,6 @@
 # iOS Download Attribution
 
-Vungle is providing a .h and .m file that will easily handle download reporting for you. You can find the iOS source here:
-
-https://s3.amazonaws.com/vvv-releases/iOS/VungleDownload.zip
+Vungle is providing a .h and .m file that will easily handle download reporting for you.
 
 ## VGDownload iOS Module
 
