@@ -45,9 +45,15 @@ overview
 --------
 
 This module can be added to your iOS application to track app downloads. To use
-it, drag VGDownload.m and VGDownload.h into your project, and call the function
-VGReportDownload() from your application delegate's startup method, which likely
-goes by this name:
+it, drag these four files into your project:
+
+  VGDownload.m
+  VGDownload.h
+  OpenUDID.m
+  OpenUDID.h
+  
+into your project, and call the function VGReportDownload() from your
+application delegate's startup method, which likely goes by this name:
 
   -(BOOL)application:(UIApplication*)application
    didFinishLaunchingWithOptions:(NSDictionary*)launchOptions

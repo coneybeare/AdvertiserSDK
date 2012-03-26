@@ -8,6 +8,7 @@
 #include <net/if_dl.h>
 #include <string.h>
 
+#import "OpenUDID.h"
 #import "VGDownload.h"
 
 // don't change the name of this key! it is shared with the vungle pub ad sdk
@@ -119,17 +120,8 @@ static BOOL runRequest(NSString* URL)
 
 static NSString* systemIdentifier(void)
 {
-    UIDevice*  udev = [UIDevice currentDevice];
-    SEL        proc = @selector(uniqueIdentifier);
-    
-    if ([udev respondsToSelector:proc])
-    {
-        return [udev performSelector:proc];
-    }
-    else
-    {
-        return @"unknown";
-    }
+    NSString* openUDID = [OpenUDID value];
+	return openUDID;
 }
 
 static NSString* url(NSString* appID)
