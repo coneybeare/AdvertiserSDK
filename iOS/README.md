@@ -7,12 +7,12 @@ Vungle is providing a few source files that will easily handle download reportin
 This module can be added to your iOS application to track app downloads. To use
 it, drag these four files into your project:
 
-  VGDownload.m
-  VGDownload.h
-  OpenUDID.m
-  OpenUDID.h
+* VGDownload.m
+* VGDownload.h
+* OpenUDID.m
+* OpenUDID.h
   
-into your project, and call the function VGReportDownload() from your
+Call the function VGReportDownload() from your
 application delegate's startup method, which likely goes by this name:
 
 ```Obj-c
