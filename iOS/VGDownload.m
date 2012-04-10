@@ -12,18 +12,24 @@
 #import "VGDownload.h"
 
 // don't change the name of this key! it is shared with the vungle pub ad sdk
-static NSString* sKeyAppInstalled = @"VGAppIsInstalled";
+static NSString* sKeyAppsInstalled = @"VGAppsInstalled";
 
-static BOOL appInstalledGet(void)
+static BOOL appInstalledGet(NSString *appID)
 {
     NSUserDefaults* ndef = [NSUserDefaults standardUserDefaults];
-    return [ndef boolForKey:sKeyAppInstalled];
+	NSDictionary *dict = [ndef objectForKey:sKeyAppsInstalled];
+    return [[dict objectForKey:appID] isEqualToNumber:[NSNumber numberWithBool:YES]];
 }
 
-static void appInstalledSet(BOOL state)
+static void appInstalledSet(BOOL state, NSString *appID)
 {
     NSUserDefaults* ndef = [NSUserDefaults standardUserDefaults];
-    [ndef setBool:state forKey:sKeyAppInstalled];
+	NSMutableDictionary *dict = [[[ndef objectForKey:sKeyAppsInstalled] mutableCopy] autorelease];
+	if (!dict) {
+		dict = [NSMutableDictionary dictionary];
+	}
+    [dict setObject:[NSNumber numberWithBool:YES] forKey:appID];
+	[ndef setObject:dict forKey:sKeyAppsInstalled];
     [ndef synchronize];
 }
 
@@ -139,10 +145,10 @@ void VGReportDownload(NSString* appID)
     VGDownload*  dnld = nil;
     SEL          proc = @selector(reportAppInstall:);
     
-    if (appInstalledGet()) return;
+    if (appInstalledGet(appID)) return;
     
     dnld = [[[VGDownload alloc] init] autorelease];
-    [dnld performSelectorInBackground:proc withObject:url(appID)];
+    [dnld performSelectorInBackground:proc withObject:appID];
 }
 
 @implementation VGDownload
@@ -160,12 +166,12 @@ void VGReportDownload(NSString* appID)
     return self;
 }
 
--(void)reportAppInstall:(NSString*)URL
+-(void)reportAppInstall:(NSString *)appID
 {
     NSAutoreleasePool*  pool = [[NSAutoreleasePool alloc] init];
-    const BOOL          rval = runRequest(URL);
+    const BOOL          rval = runRequest(url(appID));
     
-    appInstalledSet(rval);
+    appInstalledSet(rval, appID);
     
     [pool drain];
 }
